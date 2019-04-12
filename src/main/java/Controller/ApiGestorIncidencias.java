@@ -6,7 +6,7 @@ import static spark.Spark.*;
 import Model.Incidente;
 import Model.Proyecto;
 import com.google.gson.Gson;
-public class ApiGestoIncidencias {
+public class ApiGestorIncidencias {
     public static void main(String[] args) {
         port(8080);
 
@@ -21,11 +21,11 @@ public class ApiGestoIncidencias {
 
         path("/proyecto", () -> {
 
-            get("/proyecto" ,(req,res)-> ProyectoController.getProyectos(req,res),json());
-            get("/proyecto/:id" ,(req,res)-> ProyectoController.getProyecto(req,res),json());
-            post("/proyecto" ,(req,res)-> ProyectoController.createProyecto(req,res),json());
-            put("/proyecto" ,(req,res)-> ProyectoController.setProyecto(req,res),json());
-            delete("/proyecto/:id" ,(req,res)-> ProyectoController.deleteProyeccto(req,res),json());
+            get("" ,(req,res)-> ProyectoController.getProyectos(req,res),json());
+            get("/:id" ,(req,res)-> ProyectoController.getProyecto(req,res),json());
+            post("" ,(req,res)-> ProyectoController.createProyecto(req,res),json());
+            put("" ,(req,res)-> ProyectoController.setProyecto(req,res),json());
+            delete("/:id" ,(req,res)-> ProyectoController.deleteProyeccto(req,res),json());
         });
 
         path("/incidente", () -> {
