@@ -1,26 +1,22 @@
 package Service.ServiceImpMap;
 
-import Model.Incidente;
 import Model.Proyecto;
-import Model.Usuario;
-import Service.IncidenteService;
 import Service.ProyectoService;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class MapProyectoService implements ProyectoService {
 
     private HashMap<Integer, Proyecto> ProyectoMap;
-    Integer insertions;
+    private Integer insertions;
 
     public MapProyectoService() {
         insertions = 0;
-        ProyectoMap = new HashMap<Integer, Proyecto>();
+        ProyectoMap = new HashMap<>();
     }
 
     @Override
@@ -68,17 +64,14 @@ public class MapProyectoService implements ProyectoService {
     public boolean delete(Integer id) {
 
         Proyecto proyectoElim = ProyectoMap.remove(id);
-        if (proyectoElim==null){
-            return false;
-        }
-        return true;    }
+        return proyectoElim != null;
+    }
 
     @Override
     public Collection<Proyecto> getProyectoUsuario(Integer id) {
         Stream<Proyecto> st = ProyectoMap.values().stream();
-        Collection<Proyecto> result = st.filter(proyecto -> proyecto.getPropietario().getId() == (id))
+        return st.filter(proyecto -> proyecto.getPropietario().getId() == (id))
                 .collect(Collectors.toCollection(LinkedList::new));
-        return result;
     }
 }
 

@@ -1,8 +1,6 @@
 package Service.ServiceImpMap;
 
-import Model.Proyecto;
 import Model.Usuario;
-import Service.IncidenteService;
 import Service.UsuarioService;
 
 import java.util.Collection;
@@ -11,11 +9,11 @@ import java.util.HashMap;
 public class MapUsuarioService implements UsuarioService {
 
     private HashMap<Integer, Usuario> UsuarioMap;
-    Integer insertions;
+    private Integer insertions;
 
     public MapUsuarioService() {
         insertions = 0;
-        UsuarioMap = new HashMap<Integer, Usuario>();
+        UsuarioMap = new HashMap<>();
     }
 
     @Override
@@ -62,9 +60,6 @@ public class MapUsuarioService implements UsuarioService {
     public boolean delete(Integer id) {
 
         Usuario usuarioElim = UsuarioMap.remove(id);
-        if (usuarioElim==null){
-            return false;
-        }
-        return true;
+        return usuarioElim!=null;
     }
 }

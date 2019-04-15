@@ -1,12 +1,14 @@
 package Service;
 
 import Model.Incidente;
-import Model.Proyecto;
-import Model.Usuario;
-
 import java.util.Collection;
 
 public interface IncidenteService extends GeneralService<Incidente>{
+
+    @Override
+    default boolean delete (Integer id){
+        return false;
+    }
 
     Collection<Incidente> getIncedentesAsignadoUsuario(Integer id);
 

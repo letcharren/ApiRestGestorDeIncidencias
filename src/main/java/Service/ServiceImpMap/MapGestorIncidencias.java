@@ -8,10 +8,6 @@ import Service.ProyectoService;
 import Service.UsuarioService;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class MapGestorIncidencias {
     private IncidenteService incidenteService;
