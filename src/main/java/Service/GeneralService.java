@@ -4,16 +4,16 @@ import java.util.Collection;
 
 public interface GeneralService<T> {
 
-    boolean exist (int id);
+    boolean exist (Integer id);
 
-    IncidenteService get(int id);
+    T get(Integer id);
 
     Collection<T> get();
 
-    void add (T proyecto);
+    T add (T proyecto);
 
     T set(T t);
 
-    void delete (int id);
+    boolean delete (Integer id);
 
 }

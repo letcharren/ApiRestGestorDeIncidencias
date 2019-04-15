@@ -11,47 +11,45 @@ import java.util.Collection;
 public class MapProyectoService implements ProyectoService {
 
     @Override
-    public boolean exist(int id) {
+    public boolean exist(Integer id) {
+
         return false;
     }
 
     @Override
-    public IncidenteService get(int id) {
+    public Proyecto get(Integer id) {
+
         return null;
     }
 
     @Override
     public Collection<Proyecto> get() {
+
         return null;
     }
 
     @Override
-    public void add(Proyecto proyecto) {
+    public Proyecto add(Proyecto proyecto) {
 
+        return null;
     }
 
     @Override
     public Proyecto set(Proyecto proyecto) {
+
         return null;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(Integer id) {
+
+        return false;
     }
 
     @Override
-    public Collection<Incidente> getIncedentes(String id) {
+    public Collection<Incidente> getProyectoUsuario(Integer id) {
         return null;
     }
-
-    @Override
-    public Collection<Incidente> getIncidentesAbiertos(String id) {
-        return null;
-    }
-
-    @Override
-    public Collection<Incidente> getIncidentesCerrados(String id) {
-        return null;
-    }
-
 }
+
+

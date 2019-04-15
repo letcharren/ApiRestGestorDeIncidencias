@@ -8,9 +8,13 @@ import java.util.Collection;
 
 public interface IncidenteService extends GeneralService<Incidente>{
 
-    Collection<IncidenteService> getIncedentes();
+    Collection<Incidente> getIncedentesAsignadoUsuario(Integer id);
 
-    Collection<IncidenteService> getIncidentesAbiertos();
+    Collection<Incidente> getIncedentesCreadoUsuario(Integer id);
 
-    Collection<IncidenteService> getIncidentesCerrados();
+    Collection<Incidente> getIncedentesProyecto(Integer id);
+
+    Collection<Incidente> getIncidentesAbiertos();
+
+    Collection<Incidente> getIncidentesCerrados();
 }

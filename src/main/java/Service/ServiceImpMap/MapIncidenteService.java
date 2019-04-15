@@ -11,27 +11,12 @@ public class MapIncidenteService implements IncidenteService {
 
 
     @Override
-    public Collection<IncidenteService> getIncedentes() {
-        return null;
-    }
-
-    @Override
-    public Collection<IncidenteService> getIncidentesAbiertos() {
-        return null;
-    }
-
-    @Override
-    public Collection<IncidenteService> getIncidentesCerrados() {
-        return null;
-    }
-
-    @Override
-    public boolean exist(int id) {
+    public boolean exist(Integer id) {
         return false;
     }
 
     @Override
-    public IncidenteService get(int id) {
+    public Incidente get(Integer id) {
         return null;
     }
 
@@ -41,8 +26,8 @@ public class MapIncidenteService implements IncidenteService {
     }
 
     @Override
-    public void add(Incidente proyecto) {
-
+    public Incidente add(Incidente proyecto) {
+        return null;
     }
 
     @Override
@@ -51,7 +36,32 @@ public class MapIncidenteService implements IncidenteService {
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(Integer id) {
+        return false;
+    }
 
+    @Override
+    public Collection<Incidente> getIncedentesAsignadoUsuario(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Collection<Incidente> getIncedentesCreadoUsuario(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Collection<Incidente> getIncedentesProyecto(Integer id) {
+        return null;
+    }
+
+    @Override
+    public Collection<Incidente> getIncidentesAbiertos() {
+        return null;
+    }
+
+    @Override
+    public Collection<Incidente> getIncidentesCerrados() {
+        return null;
     }
 }
