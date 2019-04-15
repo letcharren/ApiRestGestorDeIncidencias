@@ -55,7 +55,7 @@ public class MapGestorIncidencias {
 
         Collection<Incidente> incidentesCreados= incidenteService.getIncedentesCreadoUsuario(id);
         Collection<Incidente> incidentesAsignados= incidenteService.getIncedentesCreadoUsuario(id);
-        Collection<Incidente> proyectos= proyectoService.getProyectUser(id);
+        Collection<Proyecto> proyectos= proyectoService.getProyectoUsuario(id);
 
         if (incidentesAsignados.isEmpty() && incidentesCreados.isEmpty() && proyectos.isEmpty()){
             return usuarioService.delete(id);
@@ -84,16 +84,28 @@ public class MapGestorIncidencias {
     }
 
     public Proyecto setProyecto(Proyecto proyecto) {
-
+//chequear que el usuario a modificar no sea null
+        if (proyecto.getPropietario() != null){
+            if (usuarioService.get(proyecto.getPropietario().getId()) == null) {
+                proyecto.setPropietario(usuarioService.get(proyecto.getPropietario().getId()));
+            } else {
+                proyecto.setPropietario(null);
+            }
+        }
         return proyectoService.set(proyecto);
     }
 
     public boolean deleteProyecto(Integer id) {
 
-        return proyectoService.delete(id);
+        Collection<Incidente> incidentesProyecto= incidenteService.getIncedentesProyecto(id);
+        if (incidentesProyecto.isEmpty()){
+            return proyectoService.delete(id);
+        }
+        return false;
     }
 
-    public Collection<Incidente> getProyectoUsuario(Integer id) {
+    public Collection<Proyecto> getProyectoUsuario(Integer id) {
+
         return proyectoService.getProyectoUsuario(id);
     }
 

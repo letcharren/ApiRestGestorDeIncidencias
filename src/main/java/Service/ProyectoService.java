@@ -8,6 +8,6 @@ import java.util.Collection;
 
 public interface ProyectoService extends GeneralService<Proyecto> {
 
-    Collection<Incidente> getProyectoUsuario(Integer id);
+    Collection<Proyecto> getProyectoUsuario(Integer id);
 
 }
