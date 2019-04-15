@@ -38,7 +38,7 @@ public class MapUsuarioService implements UsuarioService {
 
     @Override
     public Usuario add(Usuario usuario) {
-        usuario.setId(UsuarioMap.size());
+        usuario.setId(insertions);
         Usuario usuarioCreado = UsuarioMap.put(usuario.getId(),usuario);
         insertions++;
         return usuarioCreado;
@@ -48,10 +48,10 @@ public class MapUsuarioService implements UsuarioService {
     public Usuario set(Usuario usuario) {
 
         Usuario usuarioAux = UsuarioMap.get(usuario.getId());
-        if (usuario.getNombre()==null) {
+        if (usuario.getNombre()!=null) {
             usuarioAux.setNombre(usuario.getNombre());
         }
-        if (usuario.getApellido()==null) {
+        if (usuario.getApellido()!=null) {
             usuarioAux.setNombre(usuario.getNombre());
         }
 
