@@ -1,57 +1,65 @@
 package Service.ServiceImpMap;
 
-import Model.Proyecto;
 import Model.Usuario;
-import Service.IncidenteService;
 import Service.UsuarioService;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 public class MapUsuarioService implements UsuarioService {
 
+    private HashMap<Integer, Usuario> UsuarioMap;
+    private Integer insertions;
 
-    @Override
-    public Collection<Proyecto> getProyectosUsuario(String id) {
-        return null;
+    public MapUsuarioService() {
+        insertions = 0;
+        UsuarioMap = new HashMap<>();
     }
 
     @Override
-    public Collection<IncidenteService> getIncidentesReportados(String id) {
-        return null;
+    public boolean exist(Integer id) {
+
+        return UsuarioMap.containsKey(id);
     }
 
     @Override
-    public Collection<IncidenteService> getIncidentesAsignados(String id) {
-        return null;
-    }
+    public Usuario get(Integer id) {
 
-    @Override
-    public boolean exist(int id) {
-        return false;
-    }
-
-    @Override
-    public IncidenteService get(int id) {
-        return null;
+        return UsuarioMap.get(id);
     }
 
     @Override
     public Collection<Usuario> get() {
-        return null;
+
+        return UsuarioMap.values();
     }
 
     @Override
-    public void add(Usuario proyecto) {
-
+    public Usuario add(Usuario usuario) {
+        usuario.setId(insertions);
+        Usuario usuarioCreado = UsuarioMap.put(usuario.getId(),usuario);
+        insertions++;
+        return usuarioCreado;
     }
 
     @Override
     public Usuario set(Usuario usuario) {
-        return null;
+
+        Usuario usuarioAux = UsuarioMap.get(usuario.getId());
+        if (usuario.getNombre()!=null) {
+            usuarioAux.setNombre(usuario.getNombre());
+        }
+        if (usuario.getApellido()!=null) {
+            usuarioAux.setNombre(usuario.getNombre());
+        }
+
+        return usuarioAux;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(Integer id) {
 
+        Usuario usuarioElim = UsuarioMap.remove(id);
+        return usuarioElim!=null;
     }
 }

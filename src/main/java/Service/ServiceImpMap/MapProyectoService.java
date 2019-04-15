@@ -1,57 +1,78 @@
 package Service.ServiceImpMap;
 
-import Model.Incidente;
 import Model.Proyecto;
-import Model.Usuario;
-import Service.IncidenteService;
 import Service.ProyectoService;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MapProyectoService implements ProyectoService {
 
-    @Override
-    public boolean exist(int id) {
-        return false;
+    private HashMap<Integer, Proyecto> ProyectoMap;
+    private Integer insertions;
+
+    public MapProyectoService() {
+        insertions = 0;
+        ProyectoMap = new HashMap<>();
     }
 
     @Override
-    public IncidenteService get(int id) {
-        return null;
+    public boolean exist(Integer id) {
+
+        return ProyectoMap.containsKey(id);
+    }
+
+    @Override
+    public Proyecto get(Integer id) {
+
+        return ProyectoMap.get(id);
     }
 
     @Override
     public Collection<Proyecto> get() {
-        return null;
+
+        return ProyectoMap.values();
     }
 
     @Override
-    public void add(Proyecto proyecto) {
+    public Proyecto add(Proyecto proyecto) {
 
+        proyecto.setId(insertions);
+        Proyecto proyectoCreado = ProyectoMap.put(proyecto.getId(),proyecto);
+        insertions++;
+        return proyectoCreado;
     }
 
     @Override
     public Proyecto set(Proyecto proyecto) {
-        return null;
+
+        Proyecto proyectoAux = ProyectoMap.get(proyecto.getId());
+        if (proyecto.getTitulo() !=null) {
+            proyectoAux.setTitulo(proyecto.getTitulo());
+        }
+        if (proyecto.getPropietario()!=null) {
+            proyectoAux.setPropietario(proyecto.getPropietario());
+        }
+
+        return proyectoAux;
     }
 
     @Override
-    public void delete(int id) {
+    public boolean delete(Integer id) {
+
+        Proyecto proyectoElim = ProyectoMap.remove(id);
+        return proyectoElim != null;
     }
 
     @Override
-    public Collection<Incidente> getIncedentes(String id) {
-        return null;
+    public Collection<Proyecto> getProyectoUsuario(Integer id) {
+        Stream<Proyecto> st = ProyectoMap.values().stream();
+        return st.filter(proyecto -> proyecto.getPropietario().getId() == (id))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
-
-    @Override
-    public Collection<Incidente> getIncidentesAbiertos(String id) {
-        return null;
-    }
-
-    @Override
-    public Collection<Incidente> getIncidentesCerrados(String id) {
-        return null;
-    }
-
 }
+
+

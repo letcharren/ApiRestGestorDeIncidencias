@@ -1,57 +1,105 @@
 package Service.ServiceImpMap;
 
+import Model.Estado;
 import Model.Incidente;
-import Model.Proyecto;
-import Model.Usuario;
 import Service.IncidenteService;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MapIncidenteService implements IncidenteService {
 
+    private HashMap<Integer, Incidente> IncidenteMap;
+    private Integer insertions;
 
-    @Override
-    public Collection<IncidenteService> getIncedentes() {
-        return null;
+    public MapIncidenteService() {
+        IncidenteMap = new HashMap<> ();
+        this.insertions = 0;
     }
 
     @Override
-    public Collection<IncidenteService> getIncidentesAbiertos() {
-        return null;
+    public boolean exist(Integer id) {
+        return IncidenteMap.containsKey(id);
     }
 
     @Override
-    public Collection<IncidenteService> getIncidentesCerrados() {
-        return null;
-    }
-
-    @Override
-    public boolean exist(int id) {
-        return false;
-    }
-
-    @Override
-    public IncidenteService get(int id) {
-        return null;
+    public Incidente get(Integer id) {
+        return IncidenteMap.get(id);
     }
 
     @Override
     public Collection<Incidente> get() {
-        return null;
+
+        return IncidenteMap.values();
     }
 
     @Override
-    public void add(Incidente proyecto) {
+    public Incidente add(Incidente proyecto) {
 
+        proyecto.setId(insertions);
+        Incidente incidenteCreado = IncidenteMap.put(proyecto.getId(),proyecto);
+        insertions++;
+        return incidenteCreado;
     }
 
     @Override
     public Incidente set(Incidente incidente) {
-        return null;
+
+        Incidente incidenteAux = IncidenteMap.get(incidente.getId());
+        if (incidente.getDescripcion() !=null) {
+            incidenteAux.setDescripcion(incidente.getDescripcion());
+        }
+        if (incidente.getEstado()== Estado.RESUELTO && incidenteAux.getEstado()==Estado.ASIGNADO) {
+            incidenteAux.setEstado(Estado.RESUELTO);
+        }
+
+        return incidenteAux;
     }
 
     @Override
-    public void delete(int id) {
+    public Collection<Incidente> getIncedentesAsignadoUsuario(Integer id) {
 
+        Stream<Incidente> st = IncidenteMap.values().stream();
+        return st.filter(incidente ->
+                (incidente.getEstado() == Estado.ASIGNADO && incidente.getResponsable().getId()==(id)))
+                .collect(Collectors.toCollection(LinkedList::new));
     }
+
+    @Override
+    public Collection<Incidente> getIncedentesCreadoUsuario(Integer id) {
+
+        Stream<Incidente> st = IncidenteMap.values().stream();
+        return st.filter(incidente ->
+                (incidente.getEstado() == Estado.RESUELTO && incidente.getResponsable().getId()==(id)))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public Collection<Incidente> getIncedentesProyecto(Integer id) {
+
+        Stream<Incidente> st = IncidenteMap.values().stream();
+        return st.filter(incidente ->
+                (incidente.getProyecto().getId() == (id)))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public Collection<Incidente> getIncidentesAbiertos() {
+
+        Stream<Incidente> st = IncidenteMap.values().stream();
+        return st.filter(incidente ->
+                (incidente.getEstado() == Estado.ASIGNADO))
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+    @Override
+    public Collection<Incidente> getIncidentesCerrados() {
+
+        Stream<Incidente> st = IncidenteMap.values().stream();
+        return st.filter(incidente ->
+                (incidente.getEstado() == Estado.RESUELTO))
+                .collect(Collectors.toCollection(LinkedList::new));    }
 }
