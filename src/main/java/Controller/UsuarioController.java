@@ -14,15 +14,11 @@ public class UsuarioController {
      * one implementation ArtistDao to connect to db
      */
     private static UsuarioController instance;
-    private static ProyectoController pcInstance;
-    private static IncidenteController icInstance;
 
     /**
      * Constructor
      */
     private  UsuarioController(){
-        ProyectoController.getInstance();
-        IncidenteController.getInstance();
     }
 
     /**
